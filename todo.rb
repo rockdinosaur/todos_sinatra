@@ -42,11 +42,12 @@ end
 
 # Create a new list
 post "/lists" do
-  if list_name_valid?(params[:list_name].strip)
+  list_name = params[:list_name].strip
+  if list_name_valid?(list_name)
+    session[:lists] << { name: list_name, todos: [] }
+    session[:success] = "The list has been created!"
     redirect "/lists"
   else
-    session[:lists] << { name: name, todos: [] }
-    session[:success] = "The list has been created!"
     erb :new_list
   end
 end
@@ -67,7 +68,7 @@ end
 # Update an existing todo
 post "/lists/:id" do
   if list_name_valid?(params[:list_name].strip)
-    @list[:name] = params[:list_name]
+    session[:lists][@id][:name] = params[:list_name]
     session[:success] = "List has been updated!"
     redirect "/lists/#{@id}"
   else
