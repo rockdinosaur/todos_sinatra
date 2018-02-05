@@ -1,0 +1,23 @@
+<form action="/lists/<%= @id %>" method="post">
+  <% if session[:error] %>
+    <div class="flash error">
+      <p>
+        <%= session.delete(:error) %>
+      </p>
+    </div>
+  <% end %>
+  <dl>
+    <dt>
+      <label for="list_name">
+        Enter new list name:
+      </label>
+    </dt>
+    <dd>
+      <input name="list_name" placeholder="<%= session[:lists][@id][:name]%>" type="text" value="">
+    </dd>
+  </dl>
+  <fieldset>
+    <input type="submit" value="Save">
+    <a href="/">Cancel</a>
+  </fieldset>
+</form>
