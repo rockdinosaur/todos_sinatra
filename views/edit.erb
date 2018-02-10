@@ -1,4 +1,19 @@
-<form action="/lists/<%= @id %>" method="post">
+<section id="todos">
+  <header>
+    <h2>
+      Editing "<%= @list[:name] %>"
+    </h2>
+    <ul>
+      <li>
+        <form action="/lists/<%= @list_id %>/destroy"  method="post">
+          <button type="submit" class="delete">Delete List</button>
+        </form>
+      </li>
+    </ul>
+  </header>
+</section>
+
+<form action="/lists/<%= @list_id %>" method="post">
   <% if session[:error] %>
     <div class="flash error">
       <p>
@@ -13,11 +28,11 @@
       </label>
     </dt>
     <dd>
-      <input name="list_name" placeholder="<%= session[:lists][@id][:name]%>" type="text" value="">
+      <input name="list_name"`` type="text" value="<%= params[:list_name] || @list[:name] %>">
     </dd>
   </dl>
   <fieldset>
     <input type="submit" value="Save">
-    <a href="/">Cancel</a>
+    <a href="/lists/<%= @list_id %>">Cancel</a>
   </fieldset>
 </form>
